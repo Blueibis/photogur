@@ -1,4 +1,8 @@
 class Picture < ApplicationRecord
+  validates :artist, :url, presence: true
+  validates :title, length: { minimum: 3, maximum: 20}
+  validates :url, uniqueness: true
+
   def self.newest_first
     Picture.order("created_at DESC")
   end
@@ -14,4 +18,5 @@ class Picture < ApplicationRecord
   def self.created_in_year(year)
     Picture.where("created_at LIKE ?", year.to_s + '%')
   end
+
 end
